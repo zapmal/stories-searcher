@@ -1,4 +1,4 @@
-# Stories Searcher
+# HackerNews Stories Searcher
 
 Searches through hacker news API (v1).
 
