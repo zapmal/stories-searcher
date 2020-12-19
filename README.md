@@ -1,6 +1,6 @@
 # HackerNews Stories Searcher
 
-Searches through hacker news API (v1).
+Searches through hackernews API (v1).
 
 ## Available Scripts
 
