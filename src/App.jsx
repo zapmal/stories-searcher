@@ -1,7 +1,7 @@
 import React, { useReducer, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import List from './components/List';
-import InputWithLabel from './components/InputWithLabel';
+import SearchForm from './components/SearchForm';
 import useLocalStorageState from './hooks/useLocalStorageState';
 
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
@@ -71,8 +71,10 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (e) => {
     setUrl(`${API_ENDPOINT}${searchTerm}`);
+
+    e.preventDefault();
   };
 
   const handleRemove = id => {
@@ -86,23 +88,11 @@ const App = () => {
     <div>
       <h1>My Hacker Stories</h1>
 
-       {/* isFocused = true */}
-      <InputWithLabel
-        id='search'
-        value={searchTerm}
-        isFocused
-        onInputChange={handleSearch}
-      >
-        Search: 
-      </InputWithLabel>
-
-      <button
-        type='button'
-        disabled={!searchTerm}
-        onClick={handleSearchSubmit}
-      >
-        Submit
-      </button>
+      <SearchForm 
+        searchTerm={searchTerm}
+        onSearch={handleSearch}
+        onSearchSubmit={handleSearchSubmit}
+      />
 
       <hr/>
       
