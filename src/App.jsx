@@ -1,4 +1,5 @@
 import React, { useReducer, useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import List from './components/List';
 import InputWithLabel from './components/InputWithLabel';
 import useLocalStorageState from './hooks/useLocalStorageState';
@@ -46,20 +47,20 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useLocalStorageState('search', ''); 
   const [url, setUrl] = useState(`${API_ENDPOINT}${searchTerm}`);
 
-  const handleFetchStories = useCallback(() => {
+  const handleFetchStories = useCallback(async () => {
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
-    fetch(url)
-      .then(response => response.json())
-        .then(result => {
-          dispatchStories({
-            type: 'STORIES_FETCH_SUCCESS',
-            payload: result.hits,
-          });
-        })
-      .catch(() => {
-        dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+    try {
+      const result = await axios.get(url);
+      
+      dispatchStories({
+        type: 'STORIES_FETCH_SUCCESS',
+        payload: result.data.hits,
       });
+    } catch {
+      dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+    }
+
   }, [url]);
 
   useEffect(() => {
