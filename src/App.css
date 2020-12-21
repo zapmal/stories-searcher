@@ -1,0 +1,98 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  height: 100vw;
+  padding: 20px;
+
+  /* Fallback for old browsers. */
+  /* background-color: #83a4d4; */
+  background: linear-gradient(90deg, rgba(56,137,156,1) 39%, rgba(0,212,255,1) 100%); 
+  color: #ffffff;
+}
+
+.headline-primary {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+}
+
+.item > span {
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item > span > a {
+  color: inherit;
+}
+
+.button {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+
+  transition: all 300ms ease-in;
+}
+
+.button:hover {
+  border-radius: 10px;
+}
+
+.button_small {
+  padding: 5px;
+}
+
+.button_large {
+  padding: 10px;
+}
+
+.search-form {
+  padding: 12px 0 14px 0;
+  display: flex;
+  color: white;
+  align-items: baseline;
+}
+
+.search-form p {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.label {
+  padding-left: 5px;
+  font-size: 24px;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  background-color: transparent;
+
+  font-size: 24px;
+  color: #ffffff;
+  margin-right: 20px;
+}
+
+
+.currently-searching {
+  margin-top: 25px;
+  display: block;
+}

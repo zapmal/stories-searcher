@@ -17,8 +17,8 @@ const InputWithLabel = ({
   }, [isFocused]);
 
   return (
-    <>
-      <label htmlFor={id}>{children}</label>
+    <div>
+      <label htmlFor={id} className='label'>{children}</label>
       &nbsp;
       <input 
         ref={inputRef}
@@ -26,9 +26,18 @@ const InputWithLabel = ({
         id={id} 
         value={value}
         onChange={onInputChange}
+        className='input'
        />
-      <p>Currently searching: <strong>{value}</strong></p>
-    </>
+       {value ? (
+        <p className='currently-searching'>
+          Currently searching: <strong>{value}</strong>
+        </p>
+       ) : (
+         <p className="currently-searching">
+           Start searching!
+         </p>
+       )}
+    </div>
   ); 
 };
 

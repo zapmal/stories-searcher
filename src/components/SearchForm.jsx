@@ -2,7 +2,7 @@ import InputWithLabel from './InputWithLabel';
 
 const SearchForm = ({ searchTerm, onSearch, onSearchSubmit }) => {
   return (
-    <form onSubmit={onSearchSubmit}>
+    <form onSubmit={onSearchSubmit} className='search-form'>
       {/* isFocused = true */}
       <InputWithLabel
         id='search'
@@ -10,10 +10,9 @@ const SearchForm = ({ searchTerm, onSearch, onSearchSubmit }) => {
         isFocused
         onInputChange={onSearch}
       >
-        Search: 
       </InputWithLabel>
 
-      <button type='submit' disabled={!searchTerm}>
+      <button className='button button_large' type='submit' disabled={!searchTerm}>
         Submit
       </button>
 

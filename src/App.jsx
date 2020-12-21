@@ -4,6 +4,8 @@ import List from './components/List';
 import SearchForm from './components/SearchForm';
 import useLocalStorageState from './hooks/useLocalStorageState';
 
+import './App.css';
+
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 
 const storiesReducer = (state, action) => {
@@ -85,8 +87,8 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>My Hacker Stories</h1>
+    <div className='container'>
+      <h1 className='headline-primary'>My Hacker Stories</h1>
 
       <SearchForm 
         searchTerm={searchTerm}
@@ -94,7 +96,7 @@ const App = () => {
         onSearchSubmit={handleSearchSubmit}
       />
 
-      <hr/>
+      {/* <hr/> */}
       
       {stories.isError && <p>Something went wrong...</p>}
 

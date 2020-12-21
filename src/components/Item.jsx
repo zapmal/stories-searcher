@@ -9,15 +9,21 @@ const Item = ({
 }) => {
   return (
     <>
-      <li>
-        <span>
+      <li className='item'>
+        <span style={{ width: '40%' }}>
           <a href={url}>{title} </a>
         </span>
-        <span>{author} </span>
-        <span>{num_comments} </span>
-        <span>{points}</span>
-        <span>
-          <button onClick={() => onRemoveItem(id)}>Delete</button>
+        <span style={{ width: '20%' }}>{author} </span>
+        <span style={{ width: '10%' }}>{num_comments} </span>
+        <span style={{ width: '10%' }}>{points}</span>
+        <span style={{ width: '10%' }}>
+          <button 
+            type='button' 
+            className='button button_small' 
+            onClick={() => onRemoveItem(id)}
+          >
+            Delete
+          </button>
         </span> 
       </li>
     </>
