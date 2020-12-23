@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { StyledLabel, StyledInput, StyledCurrentSearchTerm } from './styles';
 
 const InputWithLabel = ({ 
   id, 
@@ -18,24 +19,23 @@ const InputWithLabel = ({
 
   return (
     <div>
-      <label htmlFor={id} className='label'>{children}</label>
+      <StyledLabel htmlFor={id}>{children}</StyledLabel>
       &nbsp;
-      <input 
+      <StyledInput
         ref={inputRef}
         type={type}
         id={id} 
         value={value}
         onChange={onInputChange}
-        className='input'
        />
        {value ? (
-        <p className='currently-searching'>
+        <StyledCurrentSearchTerm>
           Currently searching: <strong>{value}</strong>
-        </p>
+        </StyledCurrentSearchTerm>
        ) : (
-         <p className="currently-searching">
+         <StyledCurrentSearchTerm>
            Start searching!
-         </p>
+         </StyledCurrentSearchTerm>
        )}
     </div>
   ); 

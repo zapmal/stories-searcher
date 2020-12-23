@@ -1,4 +1,4 @@
-import Item from './Item';
+import Item from '../Item';
 
 const List = ({ list, onRemove }) => (
   list.map(({ objectID, ...item }) => (
