@@ -1,6 +1,6 @@
 # HackerNews Stories Searcher
 
-Uses the HackerNews API (v1)[https://hn.algolia.com/api] and can sort, cache and remember
+Uses the HackerNews API [v1](https://hn.algolia.com/api) and can sort, cache and remember
 previous searches.
 
 ## Available Scripts
