@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import List from './components/List';
 import SearchForm from './components/SearchForm';
-import Button from './components/Button';
+import LastSearches from './components/LastSearches';
 import useLocalStorageState from './hooks/useLocalStorageState';
 import { ReactComponent as HackerIcon } from './img/hacker.svg';
 import {
@@ -51,7 +51,21 @@ const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
 
 const getLastSearches = (urls) => (
   urls
-    .slice(-5)
+    .reduce((result, url, index) => {
+      const searchTerm = extractSearchTerm(url);
+
+      if (index === 0) return result.concat(searchTerm);
+
+      const previousSearchTerm = result[result.length - 1];
+
+      if (searchTerm === previousSearchTerm) {
+        return result;
+      } else {
+        return result.concat(searchTerm);
+      }
+    }, [])
+    .slice(-6)
+    .slice(0, -1)
     .map(extractSearchTerm)
 );
 
@@ -109,6 +123,8 @@ const App = () => {
   };
 
   const handleLastSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+
     handleSearch(searchTerm);
   };
 
@@ -129,17 +145,11 @@ const App = () => {
         onSearchSubmit={handleSearchSubmit}
       />
 
-      {lastSearches.map((searchTerm, index) => (
-       <Button 
-        padding='5px' 
-        key={searchTerm + index} 
-        type='button' 
-        onClickEvent={() => handleLastSearch(searchTerm)}
-        >
-         {searchTerm}
-       </Button> 
-      ))}
-      
+      <LastSearches
+        lastSearches={lastSearches}
+        onLastSearch={handleLastSearch}
+      />
+            
       {stories.isError && <p>Something went wrong on our side.</p>}
 
       <ul>
