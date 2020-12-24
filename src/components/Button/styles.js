@@ -6,12 +6,18 @@ const StyledButton = styled.button`
   color: #ffffff;
   padding: ${props => props.padding};
   cursor: pointer;
+  margin-left: 5px;
 
   transition: all 300ms ease-in;
 
   &:hover {
     border-radius: 10px;
   }
+
+  ${({ active }) => active && `
+    color: lime;
+    border: 1px solid lime;
+  `}
 `;
 
 export default StyledButton;

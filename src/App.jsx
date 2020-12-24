@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import List from './components/List';
 import SearchForm from './components/SearchForm';
+import Button from './components/Button';
 import useLocalStorageState from './hooks/useLocalStorageState';
 import { ReactComponent as HackerIcon } from './img/hacker.svg';
 import {
@@ -46,19 +47,30 @@ const storiesReducer = (state, action) => {
   }
 };
 
+const extractSearchTerm = (url) => url.replace(API_ENDPOINT, '');
+
+const getLastSearches = (urls) => (
+  urls
+    .slice(-5)
+    .map(extractSearchTerm)
+);
+
+const getUrl = searchTerm => `${API_ENDPOINT}${searchTerm}`;
+
 const App = () => {
   const [stories, dispatchStories] = useReducer(
     storiesReducer,
     { data: [], isLoading: false, isError: false },
   );
   const [searchTerm, setSearchTerm] = useLocalStorageState('search', ''); 
-  const [url, setUrl] = useState(`${API_ENDPOINT}${searchTerm}`);
+  const [urls, setUrls] = useState([getUrl(searchTerm)]);
 
   const handleFetchStories = useCallback(async () => {
     dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
     try {
-      const result = await axios.get(url);
+      const lastUrl = urls[urls.length - 1];
+      const result = await axios.get(lastUrl);
       
       dispatchStories({
         type: 'STORIES_FETCH_SUCCESS',
@@ -68,20 +80,14 @@ const App = () => {
       dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
     }
 
-  }, [url]);
+  }, [urls]);
 
   useEffect(() => {
     handleFetchStories();
   }, [handleFetchStories]);
 
-  const handleSearch = event => {
+  const handleSearchTermInput = (event) => {
     setSearchTerm(event.target.value);
-  };
-
-  const handleSearchSubmit = (e) => {
-    setUrl(`${API_ENDPOINT}${searchTerm}`);
-
-    e.preventDefault();
   };
 
   const handleRemove = (id) => {
@@ -90,6 +96,23 @@ const App = () => {
       payload: id,
     });
   };
+
+  const handleSearch = (searchTerm) => {
+    const url = getUrl(searchTerm);
+    setUrls(urls.concat(url));
+  };
+
+  const handleSearchSubmit = (e) => {
+    handleSearch(searchTerm);
+
+    e.preventDefault();
+  };
+
+  const handleLastSearch = (searchTerm) => {
+    handleSearch(searchTerm);
+  };
+
+  const lastSearches = getLastSearches(urls);
 
   return (
     <StyledContainer>
@@ -102,17 +125,28 @@ const App = () => {
 
       <SearchForm 
         searchTerm={searchTerm}
-        onSearch={handleSearch}
+        onSearch={handleSearchTermInput}
         onSearchSubmit={handleSearchSubmit}
       />
+
+      {lastSearches.map((searchTerm, index) => (
+       <Button 
+        padding='5px' 
+        key={searchTerm + index} 
+        type='button' 
+        onClickEvent={() => handleLastSearch(searchTerm)}
+        >
+         {searchTerm}
+       </Button> 
+      ))}
       
-      {stories.isError && <p>Something went wrong...</p>}
+      {stories.isError && <p>Something went wrong on our side.</p>}
 
       <ul>
         {stories.isLoading ? (
           <p>Loading...</p>
         ) : (
-          <List list={stories.data} onRemove={handleRemove}/>
+          <List list={stories.data} onRemove={handleRemove} />
         )}
       </ul>
 

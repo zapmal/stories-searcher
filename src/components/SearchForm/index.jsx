@@ -12,8 +12,7 @@ const SearchForm = ({ searchTerm, onSearch, onSearchSubmit }) => {
         value={searchTerm}
         isFocused
         onInputChange={onSearch}
-      >
-      </InputWithLabel>
+      />
 
       <Button padding='10px' type='submit' disabled={!searchTerm}>
         <SearchIcon height='20px' width='20px' fill='#ffffff'/>

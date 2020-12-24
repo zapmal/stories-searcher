@@ -6,6 +6,7 @@ const Button = ({
   disabled = false,
   onClickEvent = (param) => {},
   eventParam = null,
+  active,
   children
 }) => {
   return (
@@ -13,6 +14,7 @@ const Button = ({
       padding={padding}
       type={type}
       disabled={disabled}
+      active={active}
       onClick={() => onClickEvent(eventParam)}
     >
       {children}
